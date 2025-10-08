@@ -24,4 +24,16 @@ class TrajetModel
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getDBChauffeurByTrajetId($idTrajet) {
+        $stmt = $this->pdo->prepare("SELECT chauffeur_id FROM Trajet WHERE trajet_id = :idTrajet");
+        $stmt->bindValue(":idTrajet", $idTrajet, PDO::PARAM_INT);
+        $stmt->execute();
+        return (int) $stmt->fetchColumn();
+    }
+    public function getDBClientByTrajetId($idTrajet) {
+        $stmt = $this->pdo->prepare("SELECT client_id FROM Possede WHERE trajet_id = :idTrajet");
+        $stmt->bindValue(":idTrajet", $idTrajet, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
 }

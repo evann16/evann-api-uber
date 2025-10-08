@@ -21,4 +21,14 @@ class TrajetController
         $lignesTrajet = $this->model->getDBTrajetById($idTrajet);
         echo json_encode($lignesTrajet);
     }
+
+    public function getChauffeurByTrajetId ($idTrajet){
+        $chauffeurId = $this->model->getDBChauffeurByTrajetId($idTrajet);
+        return $chauffeurId;
+    }
+
+    public function getClientByTrajetId ($idTrajet){
+        $clientId = $this->model->getDBClientByTrajetId($idTrajet);
+        return $clientId;
+    }
 }
