@@ -16,4 +16,9 @@ class VoitureController
         $voitures = $this->model->getDBAllVoitures();
         echo json_encode($voitures);
     }
+
+    public function getVoitureById ($idVoiture){
+        $lignesVoiture = $this->model->getDBVoitureById($idVoiture);
+        echo json_encode($lignesVoiture);
+    }
 }

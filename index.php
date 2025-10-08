@@ -37,21 +37,21 @@ if (empty($_GET["page"])) {
             break;
         case "clients" : 
             if (isset($url[1])) {
-                echo "Afficher les informations du client : ". $url[1];
+                $clientController->getClientById($url[1]);
             } else {
                 print_r($clientController->getAllClients());
             }
             break;
         case "voitures" : 
             if (isset($url[1])) {
-                echo "Afficher les informations de la voiture : ". $url[1];
+                $voitureController->getVoitureById($url[1]);
             } else {
                 print_r($voitureController->getAllVoitures());
             }
             break;
         case "trajets" : 
             if (isset($url[1])) {
-                echo "Afficher les informations du trajet : ". $url[1];
+                $trajetController->getTrajetById($url[1]);
             } else {
                 print_r($trajetController->getAllTrajets());
             }

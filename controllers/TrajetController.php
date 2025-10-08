@@ -16,4 +16,9 @@ class TrajetController
         $trajets = $this->model->getDBAllTrajets();
         echo json_encode($trajets);
     }
+
+    public function getTrajetById ($idTrajet){
+        $lignesTrajet = $this->model->getDBTrajetById($idTrajet);
+        echo json_encode($lignesTrajet);
+    }
 }
