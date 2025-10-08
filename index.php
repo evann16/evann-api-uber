@@ -54,14 +54,14 @@ if (empty($_GET["page"])) {
         case "trajets" : 
             if (isset($url[1])) {
                 $trajetController->getTrajetById($url[1]);
-                
+
             } if (isset($url[2])=="details"){
                 $chauffeurId = $trajetController->getChauffeurByTrajetId($url[1]);
 
                 $clientIds = $trajetController->getClientByTrajetId($url[1]);
                 
                 foreach ($clientIds as $clientId) {
-                    print_r($clientController->getClientById($clientId));
+                    $clientController->getClientById($clientId);
                 }
                 
                 $chauffeurController->getChauffeurById($chauffeurId);
