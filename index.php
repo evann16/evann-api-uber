@@ -30,6 +30,8 @@ if (empty($_GET["page"])) {
             if (isset($url[1])) {
                 // Exemple : /chauffeurs/3 → affiche les infos du chauffeur 3
                 $chauffeurController->getChauffeurById($url[1]);
+            } if (isset($url[2])=="voitures"){
+                $chauffeurController->getVoitureByChauffeurId($url[1]);
             } else {
                 // Sinon, on affiche tous les chauffeurs
                 print_r($chauffeurController->getAllChauffeurs());
