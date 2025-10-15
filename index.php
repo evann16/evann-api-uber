@@ -83,7 +83,14 @@ if (empty($_GET["page"])) {
                     } else {
                         http_response_code(400);
                         echo json_encode(["message"=> "ID du client manquant dans l'URL"]);
-                    }        
+                    }
+                    case "DELETE":
+                        if (isset($url[1])) {
+                            $clientController->deleteClient($url[1]);
+                        } else {
+                            http_response_code(400);
+                            echo json_encode(["message"=> "ID du client manquant dans l'URL"]);
+                        }        
             }
             break;
 
