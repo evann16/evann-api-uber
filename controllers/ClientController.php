@@ -27,4 +27,14 @@ class ClientController
         http_response_code(201);
         echo json_encode($ligneClient);
     }
+
+    public function updateClient($id, $data) {      
+        $success = $this->model->updateDBClient($id, $data);
+        if ($success) {
+            http_response_code(204);
+        } else {
+            http_response_code(404);
+            echo json_encode(["message" => "client non trouvé ou non modifié"]);
+        }
+    }
 }
