@@ -20,7 +20,6 @@ if (empty($_GET["page"])) {
     $url = explode("/", $_GET['page']);
     $method = $_SERVER["REQUEST_METHOD"];
 
-
     // On traite le premier segment de l’URL avec une instruction switch
     // Cela nous permet de rediriger la requête vers le bon traitement
     switch($url[0]) {
@@ -30,8 +29,10 @@ if (empty($_GET["page"])) {
                 case "GET":
                     if (isset($url[1])) {
                         $chauffeurController->getChauffeurById($url[1]);
-                    } if (isset($url[2])=="voitures"){
-                        $chauffeurController->getVoitureByChauffeurId($url[1]);
+                        if (isset($url[2])=="voitures"){
+                            $chauffeurController->getVoitureByChauffeurId($url[1]);
+                        }
+                        break;
                     } else {
                         // Sinon, on affiche tous les chauffeurs
                         $chauffeurController->getAllChauffeurs();
@@ -43,14 +44,24 @@ if (empty($_GET["page"])) {
                     $chauffeurController->createChauffeur($data);
                     break;
             } 
+            break;
             
         case "clients" : 
-            if (isset($url[1])) {
-                $clientController->getClientById($url[1]);
-            } else {
-                print_r($clientController->getAllClients());
+            switch ($method){
+                case "GET":
+                    if (isset($url[1])) {
+                        $clientController->getClientById($url[1]);
+                    } else {
+                        print_r($clientController->getAllClients());
+                    }
+                    break;
+                case "POST":
+                    $data = json_decode(file_get_contents("php://input"),true);
+                    $clientController->createClient($data);
+                    break;                    
             }
             break;
+
         case "voitures" : 
             if (isset($url[1])) {
                 $voitureController->getVoitureById($url[1]);

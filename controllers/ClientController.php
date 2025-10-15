@@ -21,4 +21,10 @@ class ClientController
         $lignesClient = $this->model->getDBClientById($idClient);
         echo json_encode($lignesClient);
     }
+
+    public function createClient($data) {
+        $ligneClient = $this->model->createDBClient($data);
+        http_response_code(201);
+        echo json_encode($ligneClient);
+    }
 }
