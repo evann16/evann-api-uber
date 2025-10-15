@@ -18,25 +18,32 @@ if (empty($_GET["page"])) {
     // et on la découpe en plusieurs morceaux, séparés par "/"
     // Cela permet d'analyser chaque segment de l'URL
     $url = explode("/", $_GET['page']);
-    
-    // Affiche le tableau résultant pour visualiser les parties de l'URL
-    print_r($url);
+    $method = $_SERVER["REQUEST_METHOD"];
+
 
     // On traite le premier segment de l’URL avec une instruction switch
     // Cela nous permet de rediriger la requête vers le bon traitement
     switch($url[0]) {
         // Si le premier segment est "chauffeurs", on traite la logique associée
-        case "chauffeurs" : 
-            if (isset($url[1])) {
-                // Exemple : /chauffeurs/3 → affiche les infos du chauffeur 3
-                $chauffeurController->getChauffeurById($url[1]);
-            } if (isset($url[2])=="voitures"){
-                $chauffeurController->getVoitureByChauffeurId($url[1]);
-            } else {
-                // Sinon, on affiche tous les chauffeurs
-                print_r($chauffeurController->getAllChauffeurs());
-            }
-            break;
+        case "chauffeurs" :
+            switch ($method){
+                case "GET":
+                    if (isset($url[1])) {
+                        $chauffeurController->getChauffeurById($url[1]);
+                    } if (isset($url[2])=="voitures"){
+                        $chauffeurController->getVoitureByChauffeurId($url[1]);
+                    } else {
+                        // Sinon, on affiche tous les chauffeurs
+                        $chauffeurController->getAllChauffeurs();
+                    }
+                    break;
+
+                case "POST":
+                    $data = json_decode(file_get_contents("php://input"),true);
+                    $chauffeurController->createChauffeur($data);
+                    break;
+            } 
+            
         case "clients" : 
             if (isset($url[1])) {
                 $clientController->getClientById($url[1]);
