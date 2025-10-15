@@ -62,6 +62,19 @@ class ChauffeurModel
         
         return $stmt->rowCount() > 0;
     }
+
+    public function deleteDBChauffeur ($id){
+        $req = "DELETE FROM chauffeur
+                WHERE chauffeur_id = :id";
+                
+        $stmt = $this->pdo->prepare($req);
+
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        
+        $stmt->execute();
+        
+        return $stmt->rowCount() > 0;
+    }
 }
 //$chauffeur = new ChauffeurModel();
 //print_r($chauffeur->getDBAllChauffeurs());
